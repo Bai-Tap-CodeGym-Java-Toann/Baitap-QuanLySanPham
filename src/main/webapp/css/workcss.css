@@ -1,0 +1,28 @@
+div{
+    width: 80%;
+    margin: auto;
+}
+h1{
+    text-transform: uppercase;
+    margin: .5em auto;
+    text-align: center;
+}
+ul > li{
+    list-style: none;
+}
+ul > li > p{
+    width: 25%;
+    float: left;
+    margin-bottom: 0;
+    line-height: 91px;
+}
+ul > li > p > img{
+    width: 60%;
+    margin: auto;
+}
+.avatar{
+    text-align: center;
+}
+.active > p{
+    line-height: 25px;
+}
