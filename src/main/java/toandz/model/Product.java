@@ -5,7 +5,7 @@ public class Product {
     String name = "";
     double price;
     String origin = "";
-    String picture ="";
+    String picture = "";
 
     public int getCode() {
         return code;
@@ -29,6 +29,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Product(String name, double price, String origin) {
+        this.code = randomId();
+        this.name = name;
+        this.price = price;
+        this.origin = origin;
     }
 
     public String getOrigin() {

@@ -12,32 +12,47 @@
     <title>ShowCustomer</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/workcss.css">
+    <link rel="stylesheet" href="css/workspace.css">
 </head>
 <body>
-<h1 align="center">Welcome ToanDz</h1>
+<h1 align="center">Danh Sách sản phẩm</h1>
 <div>
     <br>
-    <ul class="list-group">
-        <li class="list-group-item active">
-            <p>Code</p>
-            <p>Tên Sản Phẩm</p>
-            <p>Giá thành</p>
-            <p>Nơi sản xuất</p>
-            <p></p>
-        </li>
-        <c:forEach items="${products}" var="product">
-            <li class='list-group-item'>
-                <p><c:out value="${product.getCode()}"></c:out></p>
-                <p><c:out value="${product.getName()}"></c:out></p>
-                <p><c:out value="${product.getPrice()}"></c:out></p>
-                    <%--<p class='avatar'>--%>
-                    <%--<img src="<c:out value="${customer.getPictureLink()}"></c:out>">--%>
-                    <%--</p>--%>
-            </li>
+    <br>
+    <br>
+    <form class="form-group search-form" action="/products" method="get">
+        <input class="form-control search-input" type="text" placeholder="Search">
+        <input type="hidden" name="action" value="search">
+        <button type="submit" class="btn btn-primary search-btn">Seacrh</button>
+    </form>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Code</th>
+            <th scope="col">Tên Sản Phẩm</th>
+            <th scope="col">Giá thành</th>
+            <th scope="col">Nơi sản xuất</th>
+            <th scope="col">Sửa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${products}" var="product" varStatus="count">
+            <tr>
+                <th scope="row">${count.count}</th>
+                <td><c:out value="${product.getCode()}"></c:out></td>
+                <td><c:out value="${product.getName()}"></c:out></td>
+                <td><c:out value="${product.getPrice()}"></c:out></td>
+                <td><c:out value="${product.getOrigin()}"></c:out></td>
+                <td>
+                    <a href="/products?action=edit&code=${product.getCode()}"
+                       class="btn btn-primary">Edit</a>
+                    </button>
+                </td>
+            </tr>
         </c:forEach>
-
-    </ul>
+        </tbody>
+    </table>
     <%
         if (request.getAttribute("passStatus") != null) {
             request.setAttribute("passStatus", null);

@@ -19,11 +19,13 @@ import java.util.ArrayList;
 @WebServlet(name = "ProductController", urlPatterns = "/products")
 public class ProductController extends HttpServlet {
     ProductsServ products = new ProductsServ();
-    boolean isPassed = false;
+    boolean isPassed = true;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getAttribute("passStatus").equals("passed")) {
-            isPassed = true;
+        if (request.getAttribute("passStatus") != null) {
+            if (request.getAttribute("passStatus").equals("passed")) {
+                isPassed = true;
+            }
         }
         if (isPassed) {
             String action = request.getParameter("action");
@@ -47,6 +49,12 @@ public class ProductController extends HttpServlet {
                 action = "";
             }
             switch (action) {
+                case "edit":
+                    getEditPage(request, response);
+                    break;
+                case "search":
+                    response.sendRedirect("/error404.jsp");
+                    break;
                 default:
                     getWorkspace(request, response);
                     break;
@@ -61,6 +69,16 @@ public class ProductController extends HttpServlet {
         request.setAttribute("products", productList);
         RequestDispatcher rq = request.getRequestDispatcher("/products/workspace.jsp");
         rq.forward(request, response);
+    }
 
+    private void getEditPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rq = request.getRequestDispatcher("/products/edit.jsp");
+        int code = Integer.parseInt(request.getParameter("code"));
+        Product product = products.find(code);
+        if (product != null) {
+            rq.forward(request, response);
+        } else {
+            response.sendRedirect("/error404.jsp");
+        }
     }
 }

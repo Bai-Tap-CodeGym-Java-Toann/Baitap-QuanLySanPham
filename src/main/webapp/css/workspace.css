@@ -1,0 +1,36 @@
+div {
+    width: 80%;
+    margin: auto;
+}
+
+h1 {
+    text-transform: uppercase;
+    margin: .5em auto;
+    text-align: center;
+}
+
+ul > li > p > img {
+    width: 60%;
+    margin: auto;
+}
+
+.avatar {
+    text-align: center;
+}
+
+.active > p {
+    line-height: 25px;
+}
+
+.search-form {
+    display: inline-block;
+    width: 100%;
+}
+.search-btn{
+    float: left;
+    margin-left: 10px;
+}
+.search-input{
+    width: 80%;
+    float: left;
+}
