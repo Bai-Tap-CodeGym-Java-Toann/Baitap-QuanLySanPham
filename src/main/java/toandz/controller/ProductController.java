@@ -70,6 +70,10 @@ public class ProductController extends HttpServlet {
                 case "delete":
                     deleteHandle(request, response);
                     break;
+                case "logout":
+                    isPassed =false;
+                    response.sendRedirect("/login");
+                    break;
                 default:
                     getWorkspace(request, response);
                     break;
@@ -122,7 +126,7 @@ public class ProductController extends HttpServlet {
                 request.getParameter("price").equals("") ||
                 request.getParameter("origin").equals("");
         if (!notInform) {
-            String linkpic ="img/defaultProduct.jpg";
+            String linkpic = "img/defaultProduct.jpg";
             if ((request.getParameter("picture") != null) &&
                     !(request.getParameter("picture").equals(""))) {
                 linkpic = request.getParameter("picture");

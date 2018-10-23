@@ -15,7 +15,15 @@
     <link rel="stylesheet" href="css/workspace.css">
 </head>
 <body>
-<h1 align="center">Danh Sách sản phẩm</h1>
+<div style="padding-right: 20px;padding-top: 10px; width: 100%">
+<a class="btn btn-secondary search-btn"
+   href="/products?action=logout"
+   style="float: right;">Logout</a>
+</div>
+<br>
+<br>
+<br>
+<h2 align="center">Danh Sách sản phẩm</h2>
 <%
     String log = "";
     if (request.getAttribute("log") != null) {
