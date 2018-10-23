@@ -24,6 +24,8 @@
         <input class="form-control search-input" type="text" placeholder="Search">
         <input type="hidden" name="action" value="search">
         <button type="submit" class="btn btn-primary search-btn">Seacrh</button>
+        <a href="/products?action=add"
+           class="btn btn-primary search-btn">Add</a>
     </form>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">

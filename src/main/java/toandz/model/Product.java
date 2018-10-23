@@ -4,8 +4,8 @@ public class Product {
     int code;
     String name = "";
     double price;
-    String origin = "";
-    String picture = "";
+    String origin = "Chưa rõ";
+    String picture = "img/defaultProduct.jpg";
 
     public int getCode() {
         return code;
@@ -46,11 +46,31 @@ public class Product {
         this.origin = origin;
     }
 
+    public Product(String name, double price, String origin, String picture) {
+        this.code = randomId();
+        this.name = name;
+        this.price = price;
+        this.origin = origin;
+        this.picture = picture;
+    }
+
+    public Product(int code, String name, double price, String origin, String picture) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.origin = origin;
+        this.picture = picture;
+    }
+
     public Product(int code, String name, double price, String origin) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.origin = origin;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public Product(String name, double price) {

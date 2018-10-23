@@ -20,6 +20,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+
 <h1 align="center" style="padding-top: 30px"> We're Sorry! :( </h1>
 <h1 align="center">Resource not found</h1>
 <div style="text-align: center; padding-top: 30px">
