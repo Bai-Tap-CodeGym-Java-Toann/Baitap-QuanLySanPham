@@ -13,7 +13,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
         div {
-            width: 30%;
+            width: 35%;
             margin: auto;
             padding-top: 50px;
         }
@@ -33,12 +33,12 @@
         }
     %>
     <div>
-    <img src="${product.getPicture()}" class="img-circle img-responsive"
-         align="center" width="120" height="120">
+        <img src="${product.getPicture()}" class="img-circle img-responsive"
+             align="center" width="150" height="150">
     </div>
     <br>
     <h6 align="center">Code: ${product.getCode()}</h6>
-    <form class="form-group" action="/products" method="post">
+    <form class="form-group" action="/products" method="post" id="form">
         <br>
         <h6>Tên sản phẩm</h6>
         <input class="form-control" type="text" name="name" placeholder="${product.getName()}">
@@ -47,8 +47,9 @@
         <h6>Nơi sản phâm</h6>
         <input class="form-control" type="text" name="origin" placeholder="${product.getOrigin()}">
         <h6>Link ảnh</h6>
-        <input class="form-control" type="text" name="origin" placeholder="${product.getPicture()}">
+        <input class="form-control" type="text" name="picture" placeholder="${product.getPicture()}">
         <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="code" value="${product.getCode()}">
         <h6 style="color: red"><%=error%>
         </h6>
         <button type="button" onclick="checkAndSend();"
@@ -60,9 +61,9 @@
     </form>
 </div>
 <script>
-    function checkAndSend(){
-        if (confirm("Delete: ${product.getCode()} - ${product.getName()} ?")){
-          window.location.href = "/products?action=delete&code=${product.getCode()}";
+    function checkAndSend() {
+        if (confirm("Delete: ${product.getCode()} - ${product.getName()} ?")) {
+            window.location.href = "/products?action=delete&code=${product.getCode()}";
         }
     }
 </script>

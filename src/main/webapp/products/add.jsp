@@ -60,11 +60,10 @@
         if (/^[0-9]*$/.test(document.getElementById("code").value)) {
             document.getElementById("code").style.color = "black";
         } else {
-            document.getElementById("code").style.boxShadow = "red";
+            document.getElementById("code").style.color = "red";
         }
         setTimeout(checker, 100);
     }
-
     checker();
 </script>
 </html>

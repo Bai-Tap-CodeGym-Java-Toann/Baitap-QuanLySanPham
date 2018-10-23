@@ -5,6 +5,11 @@ public class Product {
     String name = "";
     double price;
     String origin = "Chưa rõ";
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     String picture = "img/defaultProduct.jpg";
 
     public int getCode() {

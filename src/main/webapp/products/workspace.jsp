@@ -16,8 +16,15 @@
 </head>
 <body>
 <h1 align="center">Danh Sách sản phẩm</h1>
+<%
+    String log = "";
+    if (request.getAttribute("log") != null) {
+        log = (String) request.getAttribute("log");
+    }
+%>
+<h4 align="center" id="status" style="color: green"><%=log%>
+</h4>
 <div>
-    <br>
     <br>
     <br>
     <form class="form-group search-form" action="/products" method="get">
@@ -42,7 +49,8 @@
         <c:forEach items="${products}" var="product" varStatus="count">
             <tr>
                 <th scope="row">${count.count}</th>
-                <td><c:out value="${product.getCode()}"></c:out></td>
+                <td><a href="/products?action=view&code=${product.getCode()}">
+                    <c:out value="${product.getCode()}"></c:out></a></td>
                 <td><c:out value="${product.getName()}"></c:out></td>
                 <td><c:out value="${product.getPrice()}"></c:out></td>
                 <td><c:out value="${product.getOrigin()}"></c:out></td>
@@ -62,5 +70,12 @@
         }
         ;%>
 </div>
+<script>
+    function refresh() {
+        document.getElementById("status").innerHTML = "";
+    }
+
+    setTimeout(refresh, 10000);
+</script>
 </body>
 </html>
