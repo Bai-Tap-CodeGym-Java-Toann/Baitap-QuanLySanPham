@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @WebServlet(name = "ProductController", urlPatterns = "/products")
 public class ProductController extends HttpServlet {
@@ -39,10 +40,15 @@ public class ProductController extends HttpServlet {
                 case "edit":
                     editHandle(request, response);
                     break;
+                case "search":
+                    searchHandle(request, response);
+                    break;
                 default:
                     getWorkspace(request, response);
                     break;
             }
+        } else {
+            response.sendRedirect("/error404.jsp");
         }
     }
 
@@ -65,13 +71,12 @@ public class ProductController extends HttpServlet {
                 case "delete":
                     deleteHandle(request, response);
                     break;
-                case "search":
-                    response.sendRedirect("/error404.jsp");
-                    break;
                 default:
                     getWorkspace(request, response);
                     break;
             }
+        } else {
+            response.sendRedirect("/error404.jsp");
         }
     }
 
@@ -118,8 +123,9 @@ public class ProductController extends HttpServlet {
                 request.getParameter("price").equals("") ||
                 request.getParameter("origin").equals("");
         if (!notInform) {
-            String linkpic = "img/defaultProduct.jpg";
-            if (request.getParameter("picture") != null) {
+            String linkpic ="img/defaultProduct.jpg";
+            if ((request.getParameter("picture") != null) &&
+                    !(request.getParameter("picture").equals(""))) {
                 linkpic = request.getParameter("picture");
             }
             try {
@@ -148,7 +154,7 @@ public class ProductController extends HttpServlet {
             if (products.add(newProduct)) {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/products/workspace.jsp");
                 request.setAttribute("log", "Thêm thành công !");
-                request.setAttribute("products", products);
+                request.setAttribute("products", products.list());
                 dispatcher.forward(request, response);
             } else {
                 error = "code đã tồn tại";
@@ -167,7 +173,7 @@ public class ProductController extends HttpServlet {
         if (products.delete(code)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/products/workspace.jsp");
             request.setAttribute("log", "Xóa thành công !");
-            request.setAttribute("products", products);
+            request.setAttribute("products", products.list());
             dispatcher.forward(request, response);
 
         } else {
@@ -222,6 +228,42 @@ public class ProductController extends HttpServlet {
             request.setAttribute("error", error);
             rq.forward(request, response);
         }
+    }
+
+    private void searchHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rq = request.getRequestDispatcher("/products/workspace.jsp");
+        String name = request.getParameter("search");
+        ArrayList<Product> productList = products.list();
+        ArrayList<Integer> codeList = new ArrayList<>();
+        ArrayList<Product> productFinded = new ArrayList<>();
+        boolean founded = false;
+        for (Product product : productList) {
+            if (product.getName().equals(name)) {
+                codeList.add(product.getCode());
+                founded = true;
+            }
+        }
+        if (founded) {
+            for (int code : codeList) {
+                Product product = products.find(code);
+                productFinded.add(product);
+            }
+            String modified = "<script>\n" +
+                    "    document.getElementById(\"return\").innerHTML=\" <form action=\\\"/products\\\" method=\\\"post\\\">\\n\" +\n" +
+                    "        \"        <input type=\\\"hidden\\\" name=\\\"action\\\">\\n\" +\n" +
+                    "        \"        <button class=\\\"btn btn-secondary\\\" type=\\\"submit\\\">Return</button>\\n\" +\n" +
+                    "        \"    </form>\";\n" +
+                    "</script>";
+            request.setAttribute("modified", modified);
+            request.setAttribute("products", productFinded);
+            rq.forward(request, response);
+        } else {
+            request.setAttribute("log", "không tìm thấy!");
+            request.setAttribute("products", productList);
+            rq.forward(request, response);
+        }
+
+
     }
 
 }

@@ -27,8 +27,8 @@
 <div>
     <br>
     <br>
-    <form class="form-group search-form" action="/products" method="get">
-        <input class="form-control search-input" type="text" placeholder="Search">
+    <form class="form-group search-form" action="/products" method="post">
+        <input name="search" class="form-control search-input" type="text" placeholder="Type something to search">
         <input type="hidden" name="action" value="search">
         <button type="submit" class="btn btn-primary search-btn">Seacrh</button>
         <a href="/products?action=add"
@@ -70,6 +70,14 @@
         }
         ;%>
 </div>
+<div style="text-align: center; padding-top: 30px" id="return">
+</div>
+<%
+    if (request.getAttribute("modified") != null) {
+        out.print((String) request.getAttribute("modified"));
+
+    }
+%>
 <script>
     function refresh() {
         document.getElementById("status").innerHTML = "";
